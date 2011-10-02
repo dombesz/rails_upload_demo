@@ -1,0 +1,5 @@
+if (window.parent.$("#user_<%=@user.id%>").length){
+  window.parent.$("#user_<%=@user.id%>").replaceWith('<%= escape_javascript(render 'user', :user=>@user) %>');
+}else{
+  window.parent.$("#users").prepend('<%= escape_javascript(render 'user', :user=>@user) %>');
+};

@@ -1,0 +1,103 @@
+<style type="text/css" media="screen">
+  .fr{
+    float:right;
+  }
+  .upload{
+    width:400px;
+  }
+  .meter-wrap{
+      position: relative;
+  }
+
+  .meter-wrap, .meter-value, .meter-text {
+      /* The width and height of your image */
+      width: 155px; height: 30px;
+  }
+
+  .meter-wrap, .meter-value {
+      background: #bdbdbd top left no-repeat;
+  }
+
+  .meter-text {
+      position: absolute;
+      top:0; left:0;
+
+      padding-top: 5px;
+
+      color: #fff;
+      text-align: center;
+      width: 100%;
+  }
+</style>
+
+<script type="text/javascript" charset="utf-8">
+
+  $(function(){
+    var new_uuid;
+    $("#user_file").change(function(){
+      if(new_uuid!=null){
+        $(".uuid").each(function(index){
+          $(this).val(new_uuid);
+        });
+        console.log('uuid'+new_uuid);
+      }
+      $(this).parent('form').submit();
+      $(".meter-value").width('0%');
+      $("#progress").html('0%');
+      var timeout_id = setTimeout(updateProgress, 0);
+    });
+    function updateProgress(){
+      
+      $.getJSON('/progress',{
+        uuid:$("#uuid").attr('value')
+      },function(response){
+        if (response.result<100){
+          setTimeout(updateProgress, 1000);
+        }
+        
+        if (response.result==-1) {
+          $("#progress").html("Not available.")
+        }else{
+          // console.log(response.result);
+          new_uuid = response.new_uuid;
+          $(".meter-value").width(response.result+'%');
+          $("#progress").html(response.result+'%');
+        };
+        
+      });
+    }
+
+  });
+</script>
+<div class="upload" style="float:left;">
+<iframe id="upload_frame" name="upload_frame" frameborder="0" src="" style="width: 0px; height: 0px;"></iframe>
+<%= form_for(@user,:html=> {:multipart => true ,:target=>"upload_frame"}) do |f|%>
+  <%= hidden_field_tag :uuid, @user.uuid, :class=>'uuid'  %>
+  <%= f.file_field :file %>
+<% end -%>
+<div class="meter-wrap">
+  <div class="meter-value" style="background-color: #0a0; width: 0%;">
+    <div class="meter-text" id="progress">
+      0%
+    </div>
+  </div>
+</div>
+
+<%= form_for(@user, :remote=>true, :html => {:class=>'comment'}) do |f| %>
+  <%= hidden_field_tag :uuid, @user.uuid, :class=>'uuid' %>
+  <%= f.text_area :comment %><br/>
+  <%= f.submit 'Save comment &rarr;'.html_safe, :class=>'fr' %>
+<% end -%>
+
+</div>
+<div style="float:left;">
+<h1>Uploaded files</h1>
+<table>
+  <thead>
+    <th>Filename</th>
+    <th>Comment</th>
+  </thead>
+  <tbody id="users">
+    <%= render @users %>
+  </tbody>
+</table></div>
