@@ -13,7 +13,7 @@ gem 'jquery-rails'
 gem 'uuid', '~> 2.3.2'
 # gem 'rack-raw-upload', :git => 'git://github.com/newbamboo/rack-raw-upload.git'
 gem 'thin'
-gem "thin_upload", "~> 0.0.1.pre"
+# gem "thin_upload", "~> 0.0.1.pre"
 # Use unicorn as the web server
 # gem 'unicorn'
 

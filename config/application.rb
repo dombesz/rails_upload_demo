@@ -8,7 +8,7 @@ Bundler.require(:default, Rails.env) if defined?(Bundler)
 
 module FileUpload
   class Application < Rails::Application
-    # require 'thin/parser'
+    require 'thin/parser'
     # require 'thin/server'
     
     # Settings in config/environments/* take precedence over those specified here.

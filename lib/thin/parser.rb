@@ -64,8 +64,8 @@ module Thin
     # Arguments:
     #  data: (String) 
     def cleanup_progress_hash(data)
-      req_uuid = data.scan(PROGRESS_REQUEST_REGEXP).flatten.first #check if we got a progress request
-      Thin::Server::progress.delete(req_uuid) if Thin::Server::progress[req_uuid] == 100 && finished? #delete when progress is returned and 100%
+      # req_uuid = data.scan(PROGRESS_REQUEST_REGEXP).flatten.first #check if we got a progress request
+      # Thin::Server::progress.delete(req_uuid) if Thin::Server::progress[req_uuid] == 100 && finished? #delete when progress is returned and 100%
     end
   end
 end
