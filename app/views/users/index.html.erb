@@ -1,6 +1,6 @@
 <div class="upload" style="float:left;">
 <iframe id="upload_frame" name="upload_frame" frameborder="0" src="" style="width: 0px; height: 0px;"></iframe>
-<%= form_for(@user,:html=> {:multipart => true ,:target=>"upload_frame"}) do |f|%>
+<%= form_for(@user, :html=> {:multipart => true ,:target=>"upload_frame"}) do |f|%>
   <%= hidden_field_tag :uuid, @user.uuid, :class=>'uuid'  %>
   <%= f.file_field :file %>
 <% end -%>

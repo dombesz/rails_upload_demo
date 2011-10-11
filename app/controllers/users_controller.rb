@@ -8,8 +8,8 @@ class UsersController < ApplicationController
   end
   
   def progress
-    response = {:result=>-1, :new_uuid=>UUID.new.generate}
-    response.merge!({:result=> request.env['rack.progress'][params[:uuid]]}) if params[:uuid] && request.env['rack.progress'][params[:uuid]]
+    response = {:result=>-1, :new_uuid=>UUID.new.generate, :env=>request.env['rack.progress']}
+    response.merge!({:result=> request.env['rack.progress'][params[:uuid]]}) if request.env['rack.progress'][params[:uuid]]
     render :json => response    
   end
   
