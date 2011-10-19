@@ -3,7 +3,7 @@
     <% if user.file_url %>
       <%=link_to File.basename(user.file_url), user.file_url %>
     <% else %>
-      <%= "Progress: #{request.env['rack.progress'][user.uuid]}%" if request.env['rack.progress'][user.uuid]  %>
+      <%= "Progress: #{request.env['rack.progress'][user.uuid]}%" if request.env['rack.progress']&&request.env['rack.progress'][user.uuid]  %>
     <% end %>
   </td>
   <td><%= user.comment %></td>      

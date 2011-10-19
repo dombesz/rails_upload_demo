@@ -12,7 +12,7 @@ gem 'fog'
 gem 'jquery-rails'
 gem 'uuid', '~> 2.3.2'
 gem 'thin'
-gem "thin_upload", "~> 0.0.1.pre2"
+gem "thin_upload", "~> 0.0.1.pre1"
 
 # Use unicorn as the web server
 # gem 'unicorn'
